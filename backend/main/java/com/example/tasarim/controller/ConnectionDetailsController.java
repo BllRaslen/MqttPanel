@@ -1,5 +1,7 @@
-package com.example.tasarim;
+package com.example.tasarim.controller;
 
+import com.example.tasarim.repository.ConnectionDetailsRepository;
+import com.example.tasarim.entity.ConnectionDetails;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -19,6 +21,12 @@ public class ConnectionDetailsController {
     public List<ConnectionDetails> getAllConnectionDetails() {
         return connectionDetailsRepository.findAll();
     }
+
+    @GetMapping("/distinct-ports")
+    public List<Integer> getDistinctPorts() {
+        return connectionDetailsRepository.findDistinctPorts();
+    }
+
     @GetMapping("/custom-fields")
     public List<Object[]> getCustomFieldsFromConnectionDetails() {
         return connectionDetailsRepository.selectCustomFields();

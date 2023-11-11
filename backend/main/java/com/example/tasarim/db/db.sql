@@ -20,16 +20,16 @@ CREATE TABLE mqtt_data (
 );
 
 -- Select all records from the connection_details table:
-SELECT * FROM connection_details;
+SELECT * FROM connection_details;✅
 
 -- Select all records from the mqtt_data table:
-SELECT * FROM mqtt_data;
+SELECT * FROM mqtt_data; ✅
 
 -- Select specific columns from the connection_details table:
-SELECT id, host, port, username FROM connection_details;
+SELECT id, host, port, username FROM connection_details; ✅
 
 -- Select records from the mqtt_data table based on a condition (for example, where connection_id is 1):
-SELECT * FROM mqtt_data WHERE connection_id = 1;
+SELECT * FROM mqtt_data WHERE connection_id = 1;✅
 
 -- Join the mqtt_data and connection_details tables to retrieve data along with connection details:
 SELECT md.id AS mqtt_data_id, md.topic, md.message, md.host_name,

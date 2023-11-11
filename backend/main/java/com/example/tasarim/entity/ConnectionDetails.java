@@ -1,4 +1,4 @@
-package com.example.tasarim;
+package com.example.tasarim.entity;
 
 import jakarta.persistence.*;
 import jakarta.persistence.GeneratedValue;

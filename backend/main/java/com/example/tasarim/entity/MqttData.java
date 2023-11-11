@@ -1,5 +1,6 @@
-package com.example.tasarim;
+package com.example.tasarim.entity;
 
+import com.example.tasarim.entity.ConnectionDetails;
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
 
@@ -9,7 +10,6 @@ public class MqttData {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
 
     @Column(length = 999)
     private String topic;
@@ -67,5 +67,13 @@ public class MqttData {
 
     public void setTimestamp(LocalDateTime timestamp) {
         this.timestamp = timestamp;
+    }
+
+    public ConnectionDetails getConnection() {
+        return connection;
+    }
+
+    public void setConnection(ConnectionDetails connection) {
+        this.connection = connection;
     }
 }

@@ -1,4 +1,4 @@
-package com.example.tasarim;
+package com.example.tasarim.component;
 
 import org.eclipse.paho.client.mqttv3.MqttClient;
 import org.springframework.beans.factory.annotation.Autowired;
