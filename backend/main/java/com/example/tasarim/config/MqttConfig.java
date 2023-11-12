@@ -34,19 +34,15 @@ public class MqttConfig {
     private int mqttKeepAliveInterval;
 
     @Autowired
-    private MqttDataRepository messageRepository;
+    private MqttDataRepository mqttDataRepository;
 
     @Autowired
     private ConnectionDetailsRepository connectionDetailsRepository;
-
-    @Autowired
-    private MqttDataRepository mqttDataRepository;
 
     @Bean
     public MqttClient mqttClient() throws MqttException {
         // MQTT istemcisini oluştur
         MqttClient client = new MqttClient("tcp://" + mqttBroker, mqttClientId);
-
 
         // MQTT bağlantı seçeneklerini yapılandır
         MqttConnectOptions options = new MqttConnectOptions();
@@ -55,19 +51,18 @@ public class MqttConfig {
         options.setConnectionTimeout(mqttConnectionTimeout);
         options.setKeepAliveInterval(mqttKeepAliveInterval);
 
-        // MQTT istemci olaylarını işlemek için geriçağırma (callback) ayarla
+        // MQTT istemci olaylarını işlemek için geri çağırma (callback) ayarla
         client.setCallback(new MqttCallback() {
             @Override
             public void connectionLost(Throwable cause) {
                 if (cause instanceof MqttException) {
                     MqttException mqttException = (MqttException) cause;
                     System.out.println("MQTT broker bağlantısı kaybedildi: " + mqttException.getMessage());
-                    mqttException.printStackTrace(); // Print the full exception stack trace
+                    mqttException.printStackTrace(); // Tüm istisna yığınlamasını yazdır
                 } else {
                     System.out.println("MQTT broker bağlantısı kaybedildi: " + cause.getMessage());
                 }
             }
-
 
             @Override
             public void messageArrived(String topic, MqttMessage message) throws Exception {
@@ -75,13 +70,11 @@ public class MqttConfig {
                 String payload = new String(message.getPayload(), "UTF-8");
                 LocalDateTime timestamp = LocalDateTime.now();
 
-                //System.out.println("message  = " + message);
-
                 // Bağlantı ayrıntılarını oluştur ve kaydet
                 ConnectionDetails existingConnection = connectionDetailsRepository.findByHostAndPort(mqttBroker, 1883);
 
                 if (existingConnection == null) {
-                    // Create and save a new ConnectionDetails
+                    // Yeni bir ConnectionDetails oluştur ve kaydet
                     ConnectionDetails newConnectionDetails = new ConnectionDetails();
                     newConnectionDetails.setConnectionTimeout(mqttConnectionTimeout);
                     newConnectionDetails.setPassword(mqttPassword);
@@ -91,10 +84,10 @@ public class MqttConfig {
                     newConnectionDetails.setHost(mqttBroker);
                     newConnectionDetails.setClientId(mqttClientId);
 
-                    // Save the new ConnectionDetails
+                    // Yeni ConnectionDetails'ı kaydet
                     connectionDetailsRepository.save(newConnectionDetails);
 
-                    // Set the saved ConnectionDetails to the MqttData object
+                    // Kaydedilen ConnectionDetails'ı MqttData nesnesine ayarla
                     MqttData mqttData = new MqttData();
                     mqttData.setMessage(payload);
                     mqttData.setTimestamp(timestamp);
@@ -102,12 +95,10 @@ public class MqttConfig {
                     mqttData.setHostName(mqttBroker);
                     mqttData.setConnection(newConnectionDetails);
 
-
-
-                    // Save the MqttData object
+                    // MqttData nesnesini kaydet
                     mqttDataRepository.save(mqttData);
                 } else {
-                    // Set the saved ConnectionDetails to the MqttData object
+                    // Kaydedilen ConnectionDetails'ı MqttData nesnesine ayarla
                     MqttData mqttData = new MqttData();
                     mqttData.setMessage(payload);
                     mqttData.setTimestamp(timestamp);
@@ -115,12 +106,9 @@ public class MqttConfig {
                     mqttData.setHostName(mqttBroker);
                     mqttData.setConnection(existingConnection);
 
-
-
-                    // Save the MqttData object
+                    // MqttData nesnesini kaydet
                     mqttDataRepository.save(mqttData);
                 }
-
             }
 
             @Override

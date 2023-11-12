@@ -11,8 +11,15 @@ public class MqttMessageReceiver {
 
     @Autowired
     public MqttMessageReceiver(MqttClient mqttClient) {
+        // MqttClient nesnesiyle sınıfın oluşturulması
         this.mqttClient = mqttClient;
     }
 
-    // Add methods for handling MQTT messages
+    /**
+     * MQTT mesajlarını işlemek için metodları ekleyin.
+     * Örneğin:
+     * - Mesajları dinleme
+     * - Gelen mesajları işleme
+     * - vb.
+     */
 }

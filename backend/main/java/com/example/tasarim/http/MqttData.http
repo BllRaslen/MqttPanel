@@ -1,0 +1,230 @@
+# Tüm MQTT verilerini al
+GET http://localhost:8080/api/mqtt-data/all
+
+# Yanıt dosyası: all-mqtt-data-response.json
+###
+HTTP/1.1 200 OK
+Content-Type: application/json
+
+[
+  {
+    "id": 2,
+    "topic": "test",
+    "message": "333",
+    "hostName": "192.168.1.24",
+    "timestamp": "2023-11-12T03:04:52.56145",
+    "connection": {
+      "id": 1,
+      "host": "192.168.1.24",
+      "port": 1883,
+      "username": "bllraslen",
+      "password": "bll.raslen",
+      "clientId": "my_client_id",
+      "connectionTimeout": 60,
+      "keepAliveInterval": 120
+    }
+  },
+  {
+    "id": 5,
+    "topic": "test/host",
+    "message": "L",
+    "hostName": "192.168.1.24",
+    "timestamp": "2023-11-12T03:29:14.903471",
+    "connection": {
+      "id": 1,
+      "host": "192.168.1.24",
+      "port": 1883,
+      "username": "bllraslen",
+      "password": "bll.raslen",
+      "clientId": "my_client_id",
+      "connectionTimeout": 60,
+      "keepAliveInterval": 120
+    }
+  }
+]
+###
+
+# Tüm birleştirilmiş MQTT verilerini al
+GET http://localhost:8080/api/mqtt-data/hepsi
+
+# Yanıt dosyası: all-joined-mqtt-data-response.json
+###
+HTTP/1.1 200 OK
+Content-Type: application/json
+
+[
+  [
+    "test/host",
+    "2023-11-12T00:11:28.370+00:00",
+    "333",
+    "192.168.1.24",
+    "bllraslen",
+    "bll.raslen",
+    1883,
+    120,
+    60
+  ],
+  [
+    "test",
+    "2023-11-12T00:04:52.561+00:00",
+    "333",
+    "192.168.1.24",
+    "bllraslen",
+    "bll.raslen",
+    1883,
+    120,
+    60
+  ],
+  [
+    "test/host",
+    "2023-11-12T00:29:14.903+00:00",
+    "L",
+    "192.168.1.24",
+    "bllraslen",
+    "bll.raslen",
+    1883,
+    120,
+    60
+  ]
+]
+###
+
+# Bağlantı ID'sine göre MQTT verilerini al
+GET http://localhost:8080/api/mqtt-data/by-connection?connectionId=1
+
+# Yanıt dosyası: mqtt-data-by-connection-response.json
+###
+HTTP/1.1 200 OK
+Content-Type: application/json
+
+[
+  {
+    "id": 1,
+    "topic": "test/host",
+    "message": "39",
+    "hostName": "192.168.1.24",
+    "timestamp": "2023-11-12T03:04:51.547339",
+    "connection": {
+      "id": 1,
+      "host": "192.168.1.24",
+      "port": 1883,
+      "username": "bllraslen",
+      "password": "bll.raslen",
+      "clientId": "my_client_id",
+      "connectionTimeout": 60,
+      "keepAliveInterval": 120
+    }
+  },
+  {
+    "id": 3,
+    "topic": "test/host",
+    "message": "33",
+    "hostName": "192.168.1.24",
+    "timestamp": "2023-11-12T03:04:53.230774",
+    "connection": {
+      "id": 1,
+      "host": "192.168.1.24",
+      "port": 1883,
+      "username": "bllraslen",
+      "password": "bll.raslen",
+      "clientId": "my_client_id",
+      "connectionTimeout": 60,
+      "keepAliveInterval": 120
+    }
+  },
+  {
+    "id": 4,
+    "topic": "test/host",
+    "message": "333",
+    "hostName": "192.168.1.24",
+    "timestamp": "2023-11-12T03:11:28.370008",
+    "connection": {
+      "id": 1,
+      "host": "192.168.1.24",
+      "port": 1883,
+      "username": "bllraslen",
+      "password": "bll.raslen",
+      "clientId": "my_client_id",
+      "connectionTimeout": 60,
+      "keepAliveInterval": 120
+    }
+  },
+  {
+    "id": 2,
+    "topic": "test",
+    "message": "333",
+    "hostName": "192.168.1.24",
+    "timestamp": "2023-11-12T03:04:52.56145",
+    "connection": {
+      "id": 1,
+      "host": "192.168.1.24",
+      "port": 1883,
+      "username": "bllraslen",
+      "password": "bll.raslen",
+      "clientId": "my_client_id",
+      "connectionTimeout": 60,
+      "keepAliveInterval": 120
+    }
+  },
+  {
+    "id": 5,
+    "topic": "test/host",
+    "message": "L",
+    "hostName": "192.168.1.24",
+    "timestamp": "2023-11-12T03:29:14.903471",
+    "connection": {
+      "id": 1,
+      "host": "192.168.1.24",
+      "port": 1883,
+      "username": "bllraslen",
+      "password": "bll.raslen",
+      "clientId": "my_client_id",
+      "connectionTimeout": 60,
+      "keepAliveInterval": 120
+    }
+  }
+]
+###
+
+# Farklı konuları al
+GET http://localhost:8080/api/mqtt-data/distinct-topics
+
+# Yanıt dosyası: distinct-topics-response.json
+###
+HTTP/1.1 200 OK
+Content-Type: application/json
+
+[
+  "test",
+  "test/host"
+]
+###
+
+# Bir konuya ait tüm mesajları al
+GET http://localhost:8080/api/mqtt-data/all-messages/test
+
+# Yanıt dosyası: all-messages-by-topic-response.json
+###
+HTTP/1.1 200 OK
+Content-Type: application/json
+
+[
+  {
+    "id": 2,
+    "topic": "test",
+    "message": "333",
+    "hostName": "192.168.1.24",
+    "timestamp": "2023-11-12T03:04:52.56145",
+    "connection": {
+      "id": 1,
+      "host": "192.168.1.24",
+      "port": 1883,
+      "username": "bllraslen",
+      "password": "bll.raslen",
+      "clientId": "my_client_id",
+      "connectionTimeout": 60,
+      "keepAliveInterval": 120
+    }
+  }
+]
+###

@@ -1,0 +1,73 @@
+# Tüm bağlantı detaylarını al
+GET http://localhost:8080/api/connection-details/all
+
+# Yanıt dosyası: all-connection-details-response.json
+###
+HTTP/1.1 200 OK
+Content-Type: application/json
+
+[
+  {
+    "id": 1,
+    "host": "192.168.1.24",
+    "port": 1883,
+    "username": "bllraslen",
+    "password": "bll.raslen",
+    "clientId": "my_client_id",
+    "connectionTimeout": 60,
+    "keepAliveInterval": 120
+  }
+]
+###
+
+# Farklı bağlantı noktalarını al
+GET http://localhost:8080/api/connection-details/distinct-ports
+
+# Yanıt dosyası: distinct-ports-response.json
+###
+HTTP/1.1 200 OK
+Content-Type: application/json
+
+[
+  8081,
+  8082
+]
+###
+
+# Özel alanları al
+GET http://localhost:8080/api/connection-details/custom-fields
+
+# Yanıt dosyası: custom-fields-response.json
+###
+HTTP/1.1 200 OK
+Content-Type: application/json
+
+[
+  [
+    1,
+    "192.168.1.24",
+    1883,
+    "bllraslen"
+  ],
+  [
+    3,
+    "localhost",
+    1883,
+    "bllraslen"
+  ]
+]
+###
+
+# Farklı ana bilgisayar adlarını al
+GET http://localhost:8080/api/connection-details/distinct-host-names
+
+# Yanıt dosyası: distinct-host-names-response.json
+###
+HTTP/1.1 200 OK
+Content-Type: application/json
+
+[
+  "192.168.1.24",
+  "localhost"
+]
+###

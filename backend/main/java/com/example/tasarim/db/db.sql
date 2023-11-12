@@ -35,18 +35,18 @@ SELECT * FROM mqtt_data WHERE connection_id = 1;✅
 SELECT md.id AS mqtt_data_id, md.topic, md.message, md.host_name,
        cd.id AS connection_details_id, cd.host, cd.port
 FROM mqtt_data md
-         INNER JOIN connection_details cd ON md.connection_id = cd.id;
+         INNER JOIN connection_details cd ON md.connection_id = cd.id;✅
 -- Select all unique topics:
-SELECT DISTINCT topic FROM mqtt_data;
+SELECT DISTINCT topic FROM mqtt_data;✅
 
 --Select all messages for a specific topic (e.g., "my_topic"):
-SELECT message FROM mqtt_data WHERE topic = 'my_topic';
+SELECT message FROM mqtt_data WHERE topic = 'my_topic'; -- problem for "/" char
 
 --Select all unique host names:
-SELECT DISTINCT host_name FROM mqtt_data;
+SELECT DISTINCT host_name FROM mqtt_data;✅
 
 --Select all unique ports from the connection_details table:
-SELECT DISTINCT port FROM connection_details;
+SELECT DISTINCT port FROM connection_details; ✅
 
 --Select all unique connection IDs and their corresponding host names from the mqtt_data table:
 SELECT DISTINCT md.connection_id, cd.host

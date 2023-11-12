@@ -10,17 +10,22 @@ import java.util.List;
 @EnableJpaRepositories
 public interface ConnectionDetailsRepository extends JpaRepository<ConnectionDetails, Long> {
 
+    // Belirli bir host ve port için bağlantı detaylarını al
     ConnectionDetails findByHostAndPort(String host, int port);
 
+    // Bağlantı detaylarından özel alanları seç
     @Query("SELECT id, host, port, username FROM ConnectionDetails")
     List<Object[]> selectCustomFields();
 
+    // Farklı bağlantı noktalarını al
     @Query("SELECT DISTINCT cd.port FROM ConnectionDetails cd")
     List<Integer> findDistinctPorts();
-    List<ConnectionDetails> findAll();
 
+    // Farklı ana bilgisayar adlarını al (native query kullanarak)
+    @Query(value = "SELECT DISTINCT host FROM connection_details", nativeQuery = true)
+    List<String> findDistinctHostNames();
 
-
-
-
+    // Tüm kullanıcı adları ve şifreleri al
+    @Query("SELECT username, password FROM ConnectionDetails")
+    List<Object[]> selectAllUsernamesAndPasswords();
 }
