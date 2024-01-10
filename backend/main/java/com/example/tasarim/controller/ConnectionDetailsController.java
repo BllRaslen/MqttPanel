@@ -47,4 +47,6 @@ public class ConnectionDetailsController {
     public List<Object[]> getAllUsernamesAndPasswords() {
         return connectionDetailsRepository.selectAllUsernamesAndPasswords();
     }
+
+
 }

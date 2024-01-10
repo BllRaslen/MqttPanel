@@ -10,6 +10,7 @@ import java.util.List;
 @EnableJpaRepositories
 public interface ConnectionDetailsRepository extends JpaRepository<ConnectionDetails, Long> {
 
+
     // Belirli bir host ve port için bağlantı detaylarını al
     ConnectionDetails findByHostAndPort(String host, int port);
 

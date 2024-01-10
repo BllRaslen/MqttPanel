@@ -15,11 +15,4 @@ public class MqttMessageReceiver {
         this.mqttClient = mqttClient;
     }
 
-    /**
-     * MQTT mesajlarını işlemek için metodları ekleyin.
-     * Örneğin:
-     * - Mesajları dinleme
-     * - Gelen mesajları işleme
-     * - vb.
-     */
 }

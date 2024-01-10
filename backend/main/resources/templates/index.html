@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MQTT Data List</title>
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        th, td {
+            border: 1px solid black;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+<h1>MQTT Data List</h1>
+<div id="root"></div>
+
+<script>
+    // Simulate the data you would get from the server
+    const mqttData = [
+        // Replace this array with your actual data
+        [1, "Host1", "Message1", "2023-01-01", "Topic1", "Client1", 10, "Host1", 60, "Password1", 1883, "User1"],
+        [2, "Host2", "Message2", "2023-01-02", "Topic2", "Client2", 20, "Host2", 120, "Password2", 1883, "User2"],
+    ];
+
+    const MqttDataRow = ({ data }) => {
+        return (
+            `<tr key=${data[0]}>
+                    ${data.map((value, index) => (
+                `<td key=${index}>${value}</td>`
+            )).join('')}
+                </tr>`
+        );
+    };
+
+    const MqttDataList = ({ data }) => {
+        return (
+            `<table border="1">
+                    <thead>
+                        <tr>
+                            <th>Connection ID</th>
+                            <th>Host Name</th>
+                            <th>Message</th>
+                            <th>Timestamp</th>
+                            <th>Topic</th>
+                            <th>Client ID</th>
+                            <th>Connection Timeout</th>
+                            <th>Host</th>
+                            <th>Keep Alive Interval</th>
+                            <th>Password</th>
+                            <th>Port</th>
+                            <th>Username</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        ${data.map(data => (
+                MqttDataRow({ data })
+            )).join('')}
+                    </tbody>
+                </table>`
+        );
+    };
+
+    // Render the MqttDataList component
+    document.getElementById('root').innerHTML = MqttDataList({ data: mqttData });
+</script>
+</body>
+</html>
